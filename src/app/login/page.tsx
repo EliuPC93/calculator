@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,15 +9,30 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+const API = "http://127.0.0.1:8080"
 
 export default function Login() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  async function handleSubmit (formData: FormData) {
+    "use server"
+
+    const username = formData.get('username');
+    const password = formData.get('password');
+
+    const res = await fetch(API + "/security/login", {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+  })
+  
+  if (res.ok) {
+      const response = await res.json()
+      console.log(response)
+      return;
+  } else {
+      console.log("login error")
+    }
   };
 
   return (
@@ -37,15 +50,15 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" action={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username or Email"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
