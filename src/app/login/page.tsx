@@ -10,6 +10,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 const API = "http://127.0.0.1:8080"
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation';
 
 export default function Login() {
   async function handleSubmit (formData: FormData) {
@@ -28,8 +30,8 @@ export default function Login() {
   
   if (res.ok) {
       const response = await res.json()
-      console.log(response)
-      return;
+      cookies().set("token", response.jwt)
+      redirect("/operations")
   } else {
       console.log("login error")
     }
