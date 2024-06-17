@@ -6,6 +6,8 @@ import { SubmissionForm } from './components/submission-form/page';
 
 export enum OPERATIONS {
     ADDITION = "addition",
+    SUBTRACTION = "subtraction",
+    DIVISION = "division",
     MULTIPLICATION = "multiplication", 
     SQUAREROOT = "square_root",
     RANDOMSTRING = "random_string"
@@ -29,6 +31,9 @@ export default function Operations() {
                     onChange={(event)=> setSelectedOperation(event.target.value as OPERATIONS)}
                 >
                     <MenuItem value={OPERATIONS.ADDITION}>Addition</MenuItem>
+                    <MenuItem value={OPERATIONS.SUBTRACTION}>Subtraction</MenuItem>
+                    <MenuItem value={OPERATIONS.MULTIPLICATION}>Multiplication</MenuItem>
+                    <MenuItem value={OPERATIONS.DIVISION}>Division</MenuItem>
                     <MenuItem value={OPERATIONS.SQUAREROOT}>Square Root</MenuItem>
                     <MenuItem value={OPERATIONS.RANDOMSTRING}>Random String</MenuItem>
                 </Select>
@@ -37,3 +42,5 @@ export default function Operations() {
         </Container>
     )
 }
+
+// TODO: create records page
