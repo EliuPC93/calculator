@@ -9,33 +9,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-const API = "http://127.0.0.1:8080"
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation';
+import { handleSubmit } from './api/login';
 
 export default function Login() {
-  async function handleSubmit (formData: FormData) {
-    "use server"
 
-    const username = formData.get('username');
-    const password = formData.get('password');
-
-    const res = await fetch(API + "/security/login", {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-  })
-  
-  if (res.ok) {
-      const response = await res.json()
-      cookies().set("token", response.jwt)
-      redirect("/operations")
-  } else {
-      console.log("login error")
-    }
-  };
 
   return (
       <Container component="main" maxWidth="xs">
