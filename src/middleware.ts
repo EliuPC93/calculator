@@ -1,17 +1,18 @@
-import type { NextRequest } from 'next/server'
- 
+import { NextRequest, NextResponse } from 'next/server'
+
 export default function middleware(request: NextRequest) {
-  const currentToken = request.cookies.get('token')?.value
- 
-  if (currentToken && !request.nextUrl.pathname.startsWith('/operations')) {
-    return Response.redirect(new URL('/operations', request.url))
-  }
- 
-  if (!currentToken && !request.nextUrl.pathname.startsWith('/login')) {
-    return Response.redirect(new URL('/login', request.url))
-  }
+	const currentToken = request.cookies.get('token')?.value
+
+	if (!currentToken && !request.nextUrl.pathname.startsWith('/login')) {
+		return Response.redirect(new URL('/login', request.url))
+	}
+
+	if (currentToken) {
+		return NextResponse.next()
+	}
+
 }
- 
+
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+	matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 }
