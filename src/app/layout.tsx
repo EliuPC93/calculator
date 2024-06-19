@@ -9,6 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
+import Logout from "./logout/page";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -37,7 +38,7 @@ export default function RootLayout({
               </Link>
             </Box>
               <Box sx={{justifySelf: "flex-end"}}>
-                <Button  color="inherit">Logout</Button>
+                <Logout />
               </Box>
             </Toolbar>
           </AppBar>}
