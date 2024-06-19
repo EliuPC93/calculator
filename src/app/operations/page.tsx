@@ -1,9 +1,8 @@
 "use client"
 
-import { Container, Typography, Select, FormControl, InputLabel, MenuItem, Box, Link, Button } from '@mui/material';
+import { Container, Select, FormControl, InputLabel, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { SubmissionForm } from './components/submission-form/page';
-import { GridColumnIcon } from '@mui/x-data-grid';
 
 export enum OPERATIONS {
     ADDITION = "addition",
@@ -19,20 +18,8 @@ export default function Operations() {
 
     return (
         <Container component="main" maxWidth="xs">
-            <Box>
-            <Link href={"/records"}>
-                <Button
-                    variant="contained">
-                        <GridColumnIcon />
-                    Go to records table
-                </Button>
-            </Link>
-            </Box>
-            <Typography component="h1" variant="h5">
-                Welcome to the operations page
-            </Typography>
             <FormControl fullWidth>
-                <InputLabel id="operation-type-label">Operation</InputLabel>
+                <InputLabel id="operation-type-label">Select operation type</InputLabel>
                 <Select
                     labelId="operation-type-label"
                     id="operationType"
