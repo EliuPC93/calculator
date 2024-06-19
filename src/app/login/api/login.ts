@@ -20,7 +20,7 @@ export async function handleSubmit (formData: FormData) {
   if (res.ok) {
       const response = await res.json()
       cookies().set("token", response.jwt)
-      redirect("/operations")
+      redirect("/records")
   } else {
       console.log("login error")
     }

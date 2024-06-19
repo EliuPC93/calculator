@@ -2,8 +2,9 @@
 
 import { Box, Button, CircularProgress, Container, Typography } from '@mui/material';
 import { deleteRecords, fetchOperations } from './api/records';
-import { DataGrid, GridColDef, GridDeleteIcon, GridRowId } from '@mui/x-data-grid';
+import { DataGrid, GridAddIcon, GridColDef, GridDeleteIcon, GridRowId } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export interface RecordsResponse {
   id: string,
@@ -81,6 +82,7 @@ export default function Records() {
         Records
       </Typography>
       <DataGrid
+        sx={{marginBottom: 5}}
         rows={rows}
         columns={cols}
         rowCount={-1}
@@ -93,9 +95,18 @@ export default function Records() {
         keepNonExistentRowsSelected
         onRowSelectionModelChange={setSelectedRows}
       />
+
+    <Link href={"/operations"}>
       <Button
-        disabled={!selectedRows.length}
         variant="contained"
+        startIcon={<GridAddIcon />}>
+          Add new operation
+      </Button>
+    </Link>
+      <Button
+        sx={{marginLeft: 10}}
+        disabled={!selectedRows.length}
+        variant="outlined"
         onClick={deleteSelectedRows}
         startIcon={<GridDeleteIcon />}>
           Delete selected rows
