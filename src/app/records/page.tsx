@@ -1,8 +1,8 @@
 "use client"
 
-import { Box, CircularProgress, Container, Typography } from '@mui/material';
-import { fetchOperations } from './api/records';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Box, Button, CircularProgress, Container, Typography } from '@mui/material';
+import { deleteRecords, fetchOperations } from './api/records';
+import { DataGrid, GridColDef, GridDeleteIcon, GridRowId } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 
 export interface RecordsResponse {
@@ -15,36 +15,37 @@ export interface RecordsResponse {
 
 export default function Records() {
   const [rows, setRows] = useState<RecordsResponse[]>([])
+  const [selectedRows, setSelectedRows] = useState<GridRowId[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 5,
     page: 0,
   });
   const cols: GridColDef<(typeof rows)[number]>[] = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'ID', width: 200 },
     {
       field: 'amount',
       headerName: 'Amount',
-      width: 150,
+      width: 70,
       editable: true,
     },
     {
       field: 'operationType',
       headerName: 'Operation Type',
-      width: 150,
+      width: 200,
       editable: true,
     },
     {
       field: 'operationResponse',
       headerName: 'Operation Result',
       type: 'number',
-      width: 110,
+      width: 100,
       editable: true,
     },
     {
       field: 'date',
       headerName: 'Date',
-      width: 160,
+      width: 200,
     },
   ]
 
@@ -52,6 +53,17 @@ export default function Records() {
     setIsLoading(true)
     requestRecords(paginationModel.page)
   }, [paginationModel])
+
+  function deleteSelectedRows() {
+    selectedRows.forEach(async (id: GridRowId) => {
+      try {
+        await deleteRecords(id)
+      } catch (error) {
+        alert("Failed deleting row " + id)
+      }
+    })
+    requestRecords(0)
+  }
   
   function requestRecords(page: number) {
     fetchOperations(page)
@@ -77,7 +89,19 @@ export default function Records() {
         paginationMode='server'
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
+        rowSelectionModel={selectedRows}
+        keepNonExistentRowsSelected
+        onRowSelectionModelChange={setSelectedRows}
       />
+      <Button
+        disabled={!selectedRows.length}
+        variant="contained"
+        onClick={deleteSelectedRows}
+        startIcon={<GridDeleteIcon />}>
+          Delete selected rows
+      </Button>
     </Container>
   )
 }
+
+// TODO: add delete call

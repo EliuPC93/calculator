@@ -42,5 +42,3 @@ export default function Operations() {
         </Container>
     )
 }
-
-// TODO: create records page
