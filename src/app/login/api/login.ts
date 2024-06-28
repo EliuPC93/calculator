@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation';
-const API = "http://127.0.0.1:8080"
+export const API = "http://127.0.0.1:8080"
 
 export async function handleSubmit (formData: FormData) {
 
