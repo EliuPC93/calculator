@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { OPERATIONS } from "../page";
-const API = "http://127.0.0.1:8080"
+const API = "http://127.0.0.1:8080/v1/operations"
 
 interface RequestBody {
     type: string;
@@ -29,7 +29,7 @@ export async function handleSubmit (formData: FormData) {
         }
     }
 
-    const res = await fetch(API + "/operations", {
+    const res = await fetch(API, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

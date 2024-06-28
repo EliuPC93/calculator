@@ -23,13 +23,13 @@ export function SubmissionForm({operation}: {operation: OPERATIONS}) {
                 {operation != OPERATIONS.RANDOMSTRING && 
                     <Box>
                         <FormControl fullWidth>
-                            <Input type='number' id='number1' name='number1'></Input>
+                            <Input type='number' placeholder='Add a number' id='number1' name='number1'></Input>
                         </FormControl>
 
                         
                     {operation != OPERATIONS.SQUAREROOT && 
                         <FormControl fullWidth>
-                            <Input type='number' id='number2' name='number2'></Input>
+                            <Input type='number' placeholder='Add a number' id='number2' name='number2'></Input>
                         </FormControl>
                     }
                     </Box>

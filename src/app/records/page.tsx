@@ -26,7 +26,7 @@ export default function Records() {
     { field: 'id', headerName: 'ID', width: 200 },
     {
       field: 'amount',
-      headerName: 'Amount',
+      headerName: 'Cost',
       width: 70,
       editable: true,
     },
@@ -63,12 +63,14 @@ export default function Records() {
         alert("Failed deleting row " + id)
       }
     })
+    setSelectedRows([])
     requestRecords(0)
   }
   
   function requestRecords(page: number) {
     fetchOperations(page)
     .then((response: RecordsResponse[]) => {
+      console.log(response)
       setRows(response)
       setIsLoading(false)
     });
@@ -114,5 +116,3 @@ export default function Records() {
     </Container>
   )
 }
-
-// TODO: add delete call
