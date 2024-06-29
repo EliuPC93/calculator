@@ -12,13 +12,13 @@ vi.mock("./components/submission-form/page", async (importActual) => {
 
 describe("Operations page", () => {
     test("Form", () => {
-        const { getByRole } = render(<Operations />)
+        render(<Operations />)
         
         const selector = screen.getByRole('combobox', { name: 'Select operation type' })
         expect(selector).toBeDefined()
 
-        fireEvent.mouseDown(getByRole('combobox'))
-        const listbox = within(getByRole("listbox"))
+        fireEvent.mouseDown(selector)
+        const listbox = within(screen.getByRole("listbox"))
         fireEvent.click(listbox.getByText(/Addition/i))
         
         const submissionForm = screen.getByTestId('submission-form-test')
