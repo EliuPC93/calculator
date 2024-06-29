@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { RecordsResponse } from "../page";
 import { GridRowId } from "@mui/x-data-grid";
-const API = "http://127.0.0.1:8080/v1/records"
+export const API = "http://127.0.0.1:8080/v1/records"
 
 export async function fetchOperations (page: number): Promise<RecordsResponse[]> {
     const jwt = cookies().get("token")?.value

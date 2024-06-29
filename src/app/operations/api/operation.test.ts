@@ -97,7 +97,6 @@ vi.mock("next/headers", async () => {
     return {
         cookies: vi.fn().mockReturnValue({
             get: vi.fn().mockReturnValue({value: "fakeToken"}),
-            delete: vi.fn(),
         }),
     };
 });
