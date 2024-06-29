@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { OPERATIONS } from "../page";
-const API = "http://127.0.0.1:8080/v1/operations"
+export const API = "http://127.0.0.1:8080/v1/operations"
 
 interface RequestBody {
     type: string;
