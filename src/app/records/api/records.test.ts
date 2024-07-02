@@ -1,5 +1,5 @@
 import { expect, test, Mock, vi, describe } from 'vitest'
-import { deleteRecords, fetchOperations, API } from './records'
+import { deleteRecords, fetchOperations } from './records'
 
 describe('Records api', () => {
     describe('fetchOperations', () => {
@@ -12,7 +12,7 @@ describe('Records api', () => {
             const expectedParam = 0;
             await fetchOperations(expectedParam);
             
-            expect(fetch).toHaveBeenCalledWith(API + "?page=" + expectedParam, {
+            expect(fetch).toHaveBeenCalledWith(process.env.API + "/v1/records?page=" + expectedParam, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ describe('Records api', () => {
             
             await deleteRecords(expectedParam);
             
-            expect(fetch).toHaveBeenCalledWith(API + "/" + expectedParam, {
+            expect(fetch).toHaveBeenCalledWith(process.env.API + "/v1/records/" + expectedParam, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',

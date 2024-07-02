@@ -1,14 +1,16 @@
 import { expect, test, Mock, vi, describe } from 'vitest'
-import { API, handleSubmit } from './login'
-
-global.fetch = vi.fn();
+import { handleSubmit } from './login'
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 describe('Login api', () => {
     test('HandleSubmit - success', async () => {
         (global.fetch as Mock).mockResolvedValue({
             status: 200,
+            ok: true,
             json: async () => ({ jwt: "123" }),
         });
+        const cookieSpy = vi.spyOn(cookies(), "set")
         const formData = new FormData()
         const username = "pedro"
         const password = "123"
@@ -17,13 +19,15 @@ describe('Login api', () => {
         
         await handleSubmit(formData);
         
-        expect(fetch).toHaveBeenCalledWith(API + "/security/login", {
+        expect(fetch).toHaveBeenCalledWith(process.env.API + "/security/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ username, password })
         });
+        expect(cookieSpy).toHaveBeenCalledWith("token", "123")
+        expect(redirect).toHaveBeenCalledWith("/records")
     })
 
     test('HandleSubmit - error', async () => {
@@ -37,3 +41,18 @@ describe('Login api', () => {
         await expect(handleSubmit(formData)).rejects.toThrowError()
     })
 })
+
+global.fetch = vi.fn();
+vi.mock("next/headers", async () => {
+    return {
+        cookies: vi.fn().mockReturnValue({
+            set: vi.fn(),
+        }),
+    };
+});
+
+vi.mock("next/navigation", async () => {
+    return {
+        redirect: vi.fn()
+    }
+});

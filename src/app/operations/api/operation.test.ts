@@ -1,5 +1,5 @@
 import { expect, test, Mock, vi, describe } from 'vitest'
-import { API, handleSubmit } from './operations'
+import { handleSubmit } from './operations'
 
 describe('Operations api', () => {
     describe('HandleSubmit', () => {
@@ -20,7 +20,7 @@ describe('Operations api', () => {
             
             await handleSubmit(formData);
             
-            expect(fetch).toHaveBeenCalledWith(API, {
+            expect(fetch).toHaveBeenCalledWith(process.env.API + "/v1/operations", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ describe('Operations api', () => {
             
             await handleSubmit(formData);
             
-            expect(fetch).toHaveBeenCalledWith(API, {
+            expect(fetch).toHaveBeenCalledWith(process.env.API + "/v1/operations", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ describe('Operations api', () => {
             
             await handleSubmit(formData);
             
-            expect(fetch).toHaveBeenCalledWith(API, {
+            expect(fetch).toHaveBeenCalledWith(process.env.API + "/v1/operations", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',

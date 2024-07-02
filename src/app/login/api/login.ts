@@ -2,14 +2,14 @@
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation';
-export const API = "http://127.0.0.1:8080"
 
 export async function handleSubmit (formData: FormData) {
 
     const username = formData.get('username');
     const password = formData.get('password');
 
-    const res = await fetch(API + "/security/login", {
+    console.log(process.env.API + "/security/login")
+    const res = await fetch(process.env.API + "/security/login", {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -22,6 +22,6 @@ export async function handleSubmit (formData: FormData) {
       cookies().set("token", response.jwt)
       redirect("/records")
   } else {
-      console.log("login error")
+      console.log("login error", res.body)
     }
   };

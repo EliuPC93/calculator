@@ -1,7 +1,9 @@
+"use client"
+
 import { Input, Button, Box, FormControl } from '@mui/material';
-import { handleSubmit } from '../../api/operations';
-import { OPERATIONS } from '../../page';
+import { handleSubmit } from '../operations/api/operations';
 import { useState } from 'react';
+import { OPERATIONS } from '../../utils';
 
 export function SubmissionForm({operation}: {operation: OPERATIONS}) {
     const [response, setResponse] = useState()
@@ -11,7 +13,7 @@ export function SubmissionForm({operation}: {operation: OPERATIONS}) {
             const response = await handleSubmit(formData)
             setResponse(response.result)
         } catch (error) {
-            alert("there was an error during the operation")
+            alert(error)
         }
     }
 

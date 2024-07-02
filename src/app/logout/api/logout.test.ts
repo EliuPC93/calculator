@@ -21,10 +21,10 @@ vi.mock("next/navigation", async () => {
 describe('Logout api', () => {
     test('performLogout', async () => {
 
-        const getSpy = vi.spyOn(cookies(), "delete")
+        const cookieSpy = vi.spyOn(cookies(), "delete")
         await performLogout()
 
-        expect(getSpy).toHaveBeenCalledWith("token")
+        expect(cookieSpy).toHaveBeenCalledWith("token")
         expect(redirect).toHaveBeenCalledWith("/login")
     })
 })

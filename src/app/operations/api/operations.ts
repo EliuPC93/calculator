@@ -1,8 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers";
-import { OPERATIONS } from "../page";
-export const API = "http://127.0.0.1:8080/v1/operations"
+import { OPERATIONS } from "../../../utils";
 
 interface RequestBody {
     type: string;
@@ -29,7 +28,7 @@ export async function handleSubmit (formData: FormData) {
         }
     }
 
-    const res = await fetch(API, {
+    const res = await fetch(process.env.API +"/v1/operations", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -40,7 +39,8 @@ export async function handleSubmit (formData: FormData) {
     if (res.ok) {
         return res.json();
     } else {
-        throw Error("Failed with status: " + res.status)
+        const errorBody = await res.json()
+        throw Error(errorBody.message)
     }
     
 };

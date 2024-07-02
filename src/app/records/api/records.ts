@@ -3,12 +3,11 @@
 import { cookies } from "next/headers";
 import { RecordsResponse } from "../page";
 import { GridRowId } from "@mui/x-data-grid";
-export const API = "http://127.0.0.1:8080/v1/records"
 
 export async function fetchOperations (page: number): Promise<RecordsResponse[]> {
     const jwt = cookies().get("token")?.value
     
-    const res = await fetch(`${API}?page=${page}`, {
+    const res = await fetch(`${process.env.API}/v1/records?page=${page}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -27,7 +26,7 @@ export async function fetchOperations (page: number): Promise<RecordsResponse[]>
 export async function deleteRecords(id: GridRowId) {
     const jwt = cookies().get("token")?.value
     
-    const res = await fetch(`${API}/${id}`, {
+    const res = await fetch(`${process.env.API}/v1/records/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

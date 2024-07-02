@@ -2,7 +2,7 @@ import { describe, expect, test, vi } from 'vitest'
 import { render, screen, fireEvent, within } from '@testing-library/react'
 import Operations from './page'
 
-vi.mock("./components/submission-form/page", async (importActual) => {
+vi.mock("../components/submission", async (importActual) => {
     const mod = await importActual<any>();
     return {
         ...mod,

@@ -2,16 +2,8 @@
 
 import { Container, Select, FormControl, InputLabel, MenuItem } from '@mui/material';
 import { useState } from 'react';
-import { SubmissionForm } from './components/submission-form/page';
-
-export enum OPERATIONS {
-    ADDITION = "addition",
-    SUBTRACTION = "subtraction",
-    DIVISION = "division",
-    MULTIPLICATION = "multiplication", 
-    SQUAREROOT = "square_root",
-    RANDOMSTRING = "random_string"
-}
+import { SubmissionForm } from '../components/submission';
+import { OPERATIONS } from './../../utils';
 
 export default function Operations() {
     const [selectedOperation, setSelectedOperation] = useState<OPERATIONS | undefined>()
