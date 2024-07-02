@@ -1,9 +1,9 @@
 "use client"
 
 import { Input, Button, Box, FormControl } from '@mui/material';
-import { handleSubmit } from '../operations/api/operations';
+import { handleSubmit } from '../app/operations/api/operations';
 import { useState } from 'react';
-import { OPERATIONS } from '../../utils';
+import { OPERATIONS } from '../utils';
 
 export function SubmissionForm({operation}: {operation: OPERATIONS}) {
     const [response, setResponse] = useState()

@@ -2,7 +2,7 @@
 
 import { Container, Select, FormControl, InputLabel, MenuItem } from '@mui/material';
 import { useState } from 'react';
-import { SubmissionForm } from '../components/submission';
+import { SubmissionForm } from '../../components/submission';
 import { OPERATIONS } from './../../utils';
 
 export default function Operations() {
