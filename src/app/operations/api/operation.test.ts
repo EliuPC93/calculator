@@ -82,7 +82,11 @@ describe('Operations api', () => {
         })
         
         test('error', async () => {
-            (global.fetch as Mock).mockRejectedValueOnce(new Error("something happened"));
+            (global.fetch as Mock).mockResolvedValue({
+                status: 500,
+                ok: false,
+                json: async () => ({ message: "fatal error" }),
+            });
             const formData = new FormData()
             const operationType = "random_string"
             formData.set("operationType", operationType)

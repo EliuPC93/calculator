@@ -29,9 +29,13 @@ describe('Login api', () => {
         expect(cookieSpy).toHaveBeenCalledWith("token", "123")
         expect(redirect).toHaveBeenCalledWith("/records")
     })
-
+    
     test('HandleSubmit - error', async () => {
-        (global.fetch as Mock).mockRejectedValueOnce(new Error("something happened"));
+        (global.fetch as Mock).mockResolvedValue({
+            status: 500,
+            ok: false,
+            json: async () => ({ message: "fatal error" }),
+        });
         const formData = new FormData()
         const username = "pedro"
         const password = "123"
@@ -40,6 +44,7 @@ describe('Login api', () => {
         
         await expect(handleSubmit(formData)).rejects.toThrowError()
     })
+    
 })
 
 global.fetch = vi.fn();

@@ -10,6 +10,7 @@ export default defineConfig({
 			exclude: [
 				"next.config.mjs",
 				"src/middleware.ts",
+				"src/utils/*",
 				...coverageConfigDefaults.exclude
 			]
 		}
