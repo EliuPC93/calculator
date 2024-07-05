@@ -2,14 +2,12 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { handleSubmit } from './api/login';
+import { handleSubmit } from './api/signup';
 
-export default function Login() {
+export default function Signup() {
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -23,7 +21,7 @@ export default function Login() {
         >
 
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           <Box component="form" action={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -33,7 +31,6 @@ export default function Login() {
               id="username"
               label="Username or Email"
               name="username"
-              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -44,7 +41,6 @@ export default function Login() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
             />
             <Button
               type="submit"
@@ -52,15 +48,8 @@ export default function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Create user
             </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>

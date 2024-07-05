@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Box sx={{ flexGrow: 1 }}>
-        {pathName !== "/login" && <AppBar sx={{marginBottom: 5}} position="static">
+        {pathName !== "/login" && pathName !== "/signup" && <AppBar sx={{marginBottom: 5}} position="static">
             <Toolbar>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Link href={"/records"}>
