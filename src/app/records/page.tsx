@@ -5,14 +5,7 @@ import { deleteRecords, fetchOperations } from './api/records';
 import { DataGrid, GridAddIcon, GridColDef, GridDeleteIcon, GridRowId } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-
-export interface RecordsResponse {
-  id: string,
-  amount: string,
-  operationType: string,
-  operationResponse: string,
-  date: string
-}
+import { RecordsResponse } from '../../utils';
 
 export default function Records() {
   const [rows, setRows] = useState<RecordsResponse[]>([])
@@ -70,7 +63,6 @@ export default function Records() {
   function requestRecords(page: number) {
     fetchOperations(page)
     .then((response: RecordsResponse[]) => {
-      console.log(response)
       setRows(response)
       setIsLoading(false)
     });

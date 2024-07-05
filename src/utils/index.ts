@@ -6,3 +6,11 @@ export enum OPERATIONS {
     SQUAREROOT = "square_root",
     RANDOMSTRING = "random_string"
 }
+
+export interface RecordsResponse {
+    id: string,
+    amount: string,
+    operationType: string,
+    operationResponse: string,
+    date: string
+}

@@ -1,8 +1,8 @@
 "use server"
 
 import { cookies } from "next/headers";
-import { RecordsResponse } from "../page";
 import { GridRowId } from "@mui/x-data-grid";
+import { RecordsResponse } from "../../../utils";
 
 export async function fetchOperations (page: number): Promise<RecordsResponse[]> {
     const jwt = cookies().get("token")?.value
