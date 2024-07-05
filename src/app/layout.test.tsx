@@ -10,7 +10,7 @@ vi.mock("next/font/google", async () => {
 
 describe("RootLayout", () => {
     test("Should render root layout with children", async () => {
-        const content = render(<RootLayout children={<div data-testid="myChild"></div>} />)
+        const content = render(<RootLayout><div data-testid="myChild"></div></RootLayout>)
         
         expect(content.getByTestId("myChild")).toBeDefined()
     })
