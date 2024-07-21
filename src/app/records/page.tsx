@@ -6,6 +6,8 @@ import { DataGrid, GridAddIcon, GridColDef, GridDeleteIcon, GridRowId } from '@m
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { RecordsResponse } from '../../utils';
+import { Stomp } from '@stomp/stompjs';
+import SockJS from "sockjs-client"
 
 export default function Records() {
   const [rows, setRows] = useState<RecordsResponse[]>([])
@@ -42,6 +44,15 @@ export default function Records() {
       width: 200,
     },
   ]
+  
+  useEffect(() => {
+      const stompClient = Stomp.over(new SockJS("http://127.0.0.1:8080/v1/calculator-websocket"))
+      stompClient.activate();
+      stompClient.onConnect = function () {
+          stompClient.subscribe("/user/balance", function(res) {console.log(res.body)})
+          stompClient.send("/app/balance", {}, "jesus@mail.com")
+      };
+  }, []);
 
   useEffect(()=> {
     setIsLoading(true)
