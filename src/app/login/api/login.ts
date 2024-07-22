@@ -6,6 +6,9 @@ import { redirect } from 'next/navigation';
 export async function handleSubmit (formData: FormData) {
     
     const username = formData.get('username');
+    if (username) {
+        cookies().set("username", `${username}`)
+    }
     const password = formData.get('password');
     
     const res = await fetch(process.env.API + "/security/login", {

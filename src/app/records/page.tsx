@@ -6,13 +6,16 @@ import { DataGrid, GridAddIcon, GridColDef, GridDeleteIcon, GridRowId } from '@m
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { RecordsResponse } from '../../utils';
-import { Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp } from '@stomp/stompjs';
+import cookie from "js-cookie"
 import SockJS from "sockjs-client"
 
 export default function Records() {
   const [rows, setRows] = useState<RecordsResponse[]>([])
   const [selectedRows, setSelectedRows] = useState<GridRowId[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [userBalance, setUserBalance] = useState(0)
+  const [socketClient, setSocketClient] = useState<CompatClient | undefined>(undefined)
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 5,
     page: 0,
@@ -46,13 +49,16 @@ export default function Records() {
   ]
   
   useEffect(() => {
-      const stompClient = Stomp.over(new SockJS("http://127.0.0.1:8080/v1/calculator-websocket"))
-      stompClient.activate();
-      stompClient.onConnect = function () {
-          stompClient.subscribe("/user/balance", function(res) {console.log(res.body)})
-          stompClient.send("/app/balance", {}, "jesus@mail.com")
+    if (process.env.socketApi) {
+      const socket = Stomp.over(new SockJS(process.env.socketApi))
+      socket.activate();
+      socket.onConnect = function () {
+        setSocketClient(socket)
+        socket.subscribe("/user/balance", function(res) {setUserBalance(parseInt(res.body))})
+        socket.send("/app/balance", {}, cookie.get("username"))
       };
-  }, []);
+    }
+  }, [process.env.socketApi]);
 
   useEffect(()=> {
     setIsLoading(true)
@@ -69,8 +75,9 @@ export default function Records() {
     })
     setSelectedRows([])
     requestRecords(0)
+    socketClient?.send("/app/balance", {}, cookie.get("username"))
   }
-  
+
   function requestRecords(page: number) {
     fetchOperations(page)
     .then((response: RecordsResponse[]) => {
@@ -83,9 +90,14 @@ export default function Records() {
 
   return (
     <Container component="main">
-      <Typography component="h1" variant="h5">
-        Records
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: "space-between" }}>
+        <Typography component="h1" variant="h5">
+          Records
+        </Typography>
+        <Typography component="h2" variant="h5">
+          User balance: {userBalance} credits
+        </Typography>
+      </Box>
       <DataGrid
         sx={{marginBottom: 5}}
         rows={rows}
