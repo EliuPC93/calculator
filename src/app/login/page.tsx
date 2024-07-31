@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +12,15 @@ import Container from '@mui/material/Container';
 import { handleSubmit } from './api/login';
 
 export default function Login() {
+
+  async function submitForm(formData: FormData) {
+    try {            
+        await handleSubmit(formData)
+    } catch (error) {
+        alert(error)
+    }
+  }
+
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -25,7 +36,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" action={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" action={submitForm} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
